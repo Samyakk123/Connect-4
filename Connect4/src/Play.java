@@ -21,33 +21,18 @@ import javax.swing.border.EmptyBorder;
 public class Play extends JFrame {
 
   // global variables used to access them in different functions
-  private static JPanel contentPane;
-  private static final JLabel gameBoard = new JLabel("");
-  private static JFrame main;
-  private static int[][] grid = new int[6][7];
-  private static int colSelected;
-  private static JLabel playAgain;
-  private static int turn = 1;
-  private static int winner = 0;
-  private static JLabel[][] redGrid = new JLabel[6][7];
-  private static JLabel[][] yellowGrid = new JLabel[6][7];
-  private static int difficulty;
-  private static JLabel one;
-  private static JLabel oneb;
-  private static JLabel two;
-  private static JLabel twob;
-  private static JLabel Column1;
-  private static JLabel Column2;
-  private static JLabel Column3;
-  private static JLabel Column4;
-  private static JLabel Column5;
-  private static JLabel Column6;
-  private static JLabel Column7;
-  private static JLabel Star;
-  private static JLabel Star2;
-  private static JLabel Tie;
-  private static boolean type;
-  private JFrame current;
+  private JPanel contentPane;
+  private final JLabel gameBoard = new JLabel("");
+  private JLabel one, oneb, two,twob, Column1, Column2, Column3, Column4, Column5, Column6, Column7, Star, Star2, Tie, playAgain;
+  private int colSelected, difficulty;
+  private int turn = 1;
+  private int winner = 0;
+  private JLabel[][] redGrid = new JLabel[6][7];
+  private JLabel[][] yellowGrid = new JLabel[6][7];
+  private int[][] grid = new int[6][7];
+  private JFrame current, main;
+  private boolean type;
+
 
   /**
    * Play's Class Constructor
@@ -187,21 +172,16 @@ public class Play extends JFrame {
         yellowGrid[i][j].setBounds(126 + j * 76, 424 - i * 67, 73, 67);
         contentPane.add(yellowGrid[i][j]);
         yellowGrid[i][j].setVisible(false);
-      }
-    }
-
-    // create a 2d array of JLabel red pieces
-    // filling the board with the pieces
-    // set the visibility of each pieces to invisible
-    for (int i = 0; i < redGrid.length; i++) {
-      for (int j = 0; j < redGrid[i].length; j++) {
+        // Filling in all the red spots
         redGrid[i][j] = new JLabel("");
         redGrid[i][j].setIcon(new ImageIcon(Play.class.getResource("/images/cRed.png")));
         redGrid[i][j].setBounds(126 + j * 76, 424 - i * 67, 73, 67);
         contentPane.add(redGrid[i][j]);
         redGrid[i][j].setVisible(false);
+        
       }
     }
+
 
     gameBoard.setIcon(new ImageIcon(Play.class.getResource("/images/Connect4Board.png")));
     gameBoard.setBounds(41, 65, 706, 503);
@@ -268,7 +248,7 @@ public class Play extends JFrame {
     });
 
   }
-  public static void resetBoard(int[][] board) {
+  public void resetBoard(int[][] board) {
     for (int i = 0; i < board.length; i++) {
       for (int j = 0; j < board[0].length; j++) {
         board[i][j] = 0;
@@ -277,7 +257,7 @@ public class Play extends JFrame {
   }
 
   // function that is called once a column is selected
-  private static void takeTurn() {
+  private void takeTurn() {
     // winCheck() determines if there 4 in a row for either players, if there is,
     // returns either 1 or 2
     winner = winCheck(grid);
@@ -355,7 +335,7 @@ public class Play extends JFrame {
    * 
    * @return a boolean type if there is a tie or not
    */
-  public static boolean Tie() {
+  public boolean Tie() {
     int count = 0;
     // looping through the top row, if the index does not equal 0 (meaning that
     // there is a piece), adds one to count
@@ -375,7 +355,7 @@ public class Play extends JFrame {
   }
 
   // Gets possible rows
-  public static ArrayList<Integer> getValidLocation(int[][] board) {
+  public ArrayList<Integer> getValidLocation(int[][] board) {
     ArrayList<Integer> validLocations = new ArrayList<>();
 
     for (int i = 0; i < board[0].length; i++) {
@@ -389,7 +369,7 @@ public class Play extends JFrame {
   // function used to removeRows
   // if a column is filled with pieces, it removes the row not allowing the user
   // to place in that column
-  public static void removeRow(int col) {
+  public void removeRow(int col) {
     if (col == 0) {
       Column1.setVisible(false);
     } else if (col == 1) {
@@ -414,7 +394,7 @@ public class Play extends JFrame {
   }
 
   // displays whos turn it is to the user using JLabel
-  public static void whichTurn() {
+  public void whichTurn() {
     // if its the first player
     if (turn % 2 == 1) {
       oneb.setVisible(true);
@@ -437,44 +417,35 @@ public class Play extends JFrame {
    * @param column (int) - column selected to place piece
    * @param player (int) - whose turn it is (player 1 or 2)
    */
-  public static int putAtBottom(int[][] board, int column, int player) {
+  public int putAtBottom(int[][] board, int column, int player) {
 
-    boolean placed = false;
-    int i = board.length - 1;
+
+    int i = getOpenRow(board,column);
 
 
 
     // while loop iterates through the board, checking for empty places
-    while (!placed && i >= 0) {
-      // only place if empty
-
-      if (board[i][column] == 0) {
-
-        board[i][column] = player;
-        // making player pieces visible
-        if (player == 1) {
-          yellowGrid[5 - i][column].setVisible(true);
-        } else if (player == 2) {
-          redGrid[5 - i][column].setVisible(true);
-        }
-        // update placement status
-        placed = true;
-
-
-      }
-      // removes column button if it is full
-      if (board[0][column] != 0) {
-        removeRow(column);
-      }
-      i -= 1;
+    
+    board[i][column] = player;
+    // making player pieces visible
+    if (player == 1) {
+      yellowGrid[5 - i][column].setVisible(true);
+    } else if (player == 2) {
+      redGrid[5 - i][column].setVisible(true);
     }
+
+    // removes column button if it is full
+    if (board[0][column] != 0) {
+      removeRow(column);
+    }
+    
     // Returns the row number from 0-5 inclusive if there is a row available in a column and places
     // the pieces there.
 
     return i;
   }
 
-  public static int getOpenRow(int[][] board, int column) {
+  public int getOpenRow(int[][] board, int column) {
 
     int i = board.length - 1;
 
@@ -487,7 +458,7 @@ public class Play extends JFrame {
     return -1;
   }
 
-  public static int evaluateWindow(int[] array, int piece) {
+  public int evaluateWindow(int[] array, int piece) {
     int score = 0;
     int oppPiece = 1;
     if (piece == 1) {
@@ -528,7 +499,7 @@ public class Play extends JFrame {
 
 
 
-  public static int scoreCheck(int[][] board, int piece) {
+  public int scoreCheck(int[][] board, int piece) {
 
     int score = 0;
 
@@ -575,11 +546,11 @@ public class Play extends JFrame {
     return score;
   }
 
-  public static boolean terminal_node(int[][] board) {
+  public boolean terminal_node(int[][] board) {
     return winCheck(board) == 1 || winCheck(board) == 2 || getValidLocation(board).size() == 0;
   }
 
-  public static int[][] cloneBoard(int[][] board) {
+  public int[][] cloneBoard(int[][] board) {
 
     int[][] clone = new int[6][7];
     for (int i = 0; i < board.length; i++) {
@@ -592,7 +563,7 @@ public class Play extends JFrame {
   }
 
   // maximizingPlayer is the AI peice
-  public static int[] miniMax(int[][] board, int depth, int alpha, int beta,
+  public int[] miniMax(int[][] board, int depth, int alpha, int beta,
       boolean maximizingPlayer) {
     ArrayList<Integer> validLocations = getValidLocation(board);
 
@@ -682,7 +653,7 @@ public class Play extends JFrame {
    * 
    * @return winner
    */
-  public static int winCheck(int[][] board) {
+  public int winCheck(int[][] board) {
 
     // check horizontal
     // nested for loops iterate though board grid (until column 4) to see if there
