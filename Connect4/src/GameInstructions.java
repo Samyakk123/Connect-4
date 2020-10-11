@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class gameInstructions extends JFrame {
+public class GameInstructions extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame originator;
@@ -24,7 +24,7 @@ public class gameInstructions extends JFrame {
 	 * @param originator - JFrame type of the frame it originated from
 	 * 
 	 */
-	public gameInstructions(JFrame originator) {
+	public GameInstructions(JFrame originator) {
 		this.originator = originator;
 		this.current = this;
 
@@ -60,19 +60,19 @@ public class gameInstructions extends JFrame {
 		GameInstructions.setFont(new Font("Calibri", Font.PLAIN, 23));
 		GameInstructions.setBounds(47, 93, 775, 351);
 		contentPane.add(GameInstructions);
-		Back.setIcon(new ImageIcon(gameInstructions.class.getResource("/images/Back40.png")));
+		Back.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/Back40.png")));
 		Back.setBounds(16, 426, 295, 93);
 		contentPane.add(Back);
 
 		// sets the background image
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(gameInstructions.class.getResource("/images/AnotherBackground.PNG")));
+		label.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/AnotherBackground.PNG")));
 		label.setBounds(-1, 0, 786, 513);
 		contentPane.add(label);
 
 		// sets title of JFrame
 		JLabel GameInstruction = new JLabel("");
-		GameInstruction.setIcon(new ImageIcon(gameInstructions.class.getResource("/images/GameI.PNG")));
+		GameInstruction.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/GameI.PNG")));
 		GameInstruction.setBounds(183, -13, 508, 157);
 		contentPane.add(GameInstruction);
 	}

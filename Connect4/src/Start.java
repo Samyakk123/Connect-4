@@ -38,8 +38,9 @@ public class Start extends JFrame {
 		Computer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Play frame = new Play(false);
+				Difficulty frame = new Difficulty();
 				frame.setVisible(true);
+				current.setVisible(false);
 				current.dispose();
 			}
 		});
@@ -52,7 +53,7 @@ public class Start extends JFrame {
 		Instruction.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				gameInstructions newFrame = new gameInstructions(current);
+				GameInstructions newFrame = new GameInstructions(current);
 				current.setVisible(false);
 				newFrame.setVisible(true);
 			}
@@ -69,7 +70,7 @@ public class Start extends JFrame {
 		player.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				Play frame = new Play(true);
+				Play frame = new Play(true, 0);
 				frame.setVisible(true);
 				current.dispose();
 			}
