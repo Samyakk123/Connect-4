@@ -6,4 +6,5 @@ public class main {
 		Start startFrame = new Start();
 		startFrame.makeFrame();
 	}
+	//
 }
