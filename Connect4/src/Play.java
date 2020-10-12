@@ -81,7 +81,7 @@ public class Play extends JFrame {
 
         playAgain = new JLabel("Play Again!");
         playAgain.setBounds(681, 419, 93, 81);
-        playAgain.setVisible(false);
+        playAgain.setVisible(true);
         contentPane.add(playAgain);
         contentPane.add(Tie);
         contentPane.add(Star);

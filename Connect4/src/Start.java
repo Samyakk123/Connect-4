@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Start extends JFrame {
 
@@ -25,7 +27,12 @@ public class Start extends JFrame {
 		// other JFrames
 		this.current = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 		setBounds(100, 100, 800, 550);
+		
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -84,6 +91,8 @@ public class Start extends JFrame {
 		label.setIcon(new ImageIcon(Start.class.getResource("/images/MainBoard.jpg")));
 		label.setBounds(-100, 0, 1032, 511);
 		contentPane.add(label);
+		
+		
 	}
 
 	// when the program starts, it calls this method which creates a "Start" Window
