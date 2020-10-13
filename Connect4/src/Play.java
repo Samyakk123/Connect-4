@@ -80,7 +80,8 @@ public class Play extends JFrame {
         Tie.setVisible(false);
 
         playAgain = new JLabel("Play Again!");
-        playAgain.setBounds(681, 419, 93, 81);
+        playAgain.setIcon(new ImageIcon(Play.class.getResource("/images/Back40.png")));
+        playAgain.setBounds(668, 435, 116, 65);
         playAgain.setVisible(true);
         contentPane.add(playAgain);
         contentPane.add(Tie);
