@@ -9,15 +9,20 @@ This game is ideal for all different skill levels with our AI's varying difficul
 
 ## How to play
 #### Method One
-- Download the exe file provided in the repository
+- On the right hand side under __releases__ 
+- select the __Exe File__
+- Download the __Connect.Four.zip__ file
+- Extract it onto any location in your computer
+- Then run as a normal .exe application
+- Now you are free to run the game!
 
 #### Method Two
-- Select code -> download as ZIP
+- Select __code__ -> download as ZIP
 - Extract the files onto any location inside your computer
 - Open Eclipse, or Netbeans or any other Java compiler to play
-- Right click the project 'Connect4' -> Properties -> Java Build Path 
-- Click source at the very top
-- Add folder on the right hand side and select 'Images2'
+- Right click the project __Connect4__ -> __Properties__ -> __Java Build Path__ 
+- Click __source__ at the very top
+- Add folder on the right hand side and select __Images2__
 - Now you are free to run the game!
 
 
