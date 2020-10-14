@@ -17,6 +17,7 @@ public class Board {
     public ArrayList<Integer> getValidLocation(int[][] board) {
         ArrayList<Integer> validLocations = new ArrayList<>();
 
+     // For every column not filled to the top add it to the arrayList
         for (int i = 0; i < board[0].length; i++) {
             if (board[0][i] == 0) {
                 validLocations.add(i);
@@ -33,9 +34,10 @@ public class Board {
      * @return i the valid row
      */
     public int getOpenRow(int[][] board, int column) {
-
+     
         int i = board.length - 1;
 
+     // Get the last open row in a given column
         while (i >= 0) {
             if (board[i][column] == 0) {
                 return i;
@@ -54,15 +56,21 @@ public class Board {
      */
     public int evaluateWindow(int[] array, int piece) {
         int score = 0;
+     
+        
+     // Make sure oppPiece always refers to the alternate piece 
+     // as the one provided in the parameter
         int oppPiece = 1;
         if (piece == 1) {
             oppPiece = 2;
         }
 
+        // Count the number of player pieces, AI pieces, and empty slots
+        // In the given 4 array
         int pieceCount = 0;
         int emptyCount = 0;
         int oppPieceCount = 0;
-
+        
         for (int i = 0; i < array.length; i++) {
             if (array[i] == piece) {
                 pieceCount += 1;
@@ -73,14 +81,18 @@ public class Board {
             }
         }
 
-
+        // If it is a winning move it is prioritized
         if (pieceCount == 4) {
             score += 100;
+            
+        // If there are 3 pieces and an empty slot 
         } else if (pieceCount == 3 && emptyCount == 1) {
             score += 5;
+        // If there are 2 pieces and 2 empty slots
         } else if (pieceCount == 2 && emptyCount == 2) {
             score += 3;
         }
+        // If the opponent (Player) has an opportunity to win block it
         if (oppPieceCount == 3 && emptyCount == 1) {
             score -= 25;
         }
@@ -98,13 +110,15 @@ public class Board {
 
         int score = 0;
 
-        // HORIZONTAL CHECKING
+         // HORIZONTAL CHECKING
         int[] temp = new int[4];
         for (int ROW = 0; ROW < board.length; ROW++) {
             for (int COLUMN = 0; COLUMN < board[0].length - 3; COLUMN++) {
                 for (int k = 0; k < 4; k++) {
+         // Go through every array of four on the entire board horizontally
                     temp[k] = board[ROW][COLUMN + k];
                 }
+         // For each array of four evaluate the score from the method above
                 score += evaluateWindow(temp, piece);
             }
         }
@@ -113,8 +127,10 @@ public class Board {
         for (int COLUMN = 0; COLUMN < board[0].length; COLUMN++) {
             for (int ROW = 0; ROW < board.length - 3; ROW++) {
                 for (int k = 0; k < 4; k++) {
+        // Go through every array of four on the entire board vertically
                     temp[k] = board[ROW + k][COLUMN];
                 }
+        // For each array of four evaluate the score
                 score += evaluateWindow(temp, piece);
             }
         }
@@ -123,8 +139,10 @@ public class Board {
         for (int ROW = 0; ROW <= 2; ROW++) {
             for (int COLUMN = 0; COLUMN <= 3; COLUMN++) {
                 for (int k = 0; k < 4; k++) {
+        // Go through every array of four of diagonals ranging from top left to bottom right
                     temp[k] = board[ROW + k][COLUMN + k];
                 }
+        // For each array of four evaluate the score
                 score += evaluateWindow(temp, piece);
             }
         }
@@ -133,8 +151,10 @@ public class Board {
         for (int ROW = 0; ROW <= 2; ROW++) {
             for (int COLUMN = 3; COLUMN <= board.length; COLUMN++) {
                 for (int k = 0; k < 4; k++) {
+        // Go through every array of four of diagonals ranging from bottom left to top right
                     temp[k] = board[ROW + k][COLUMN - k];
                 }
+        // For each array of four evaluate the score
                 score += evaluateWindow(temp, piece);
             }
         }
@@ -152,7 +172,8 @@ public class Board {
     }
 
     public int[][] cloneBoard(int[][] board) {
-
+      // Create a clone of the entire board
+      // Using loops so memory address does not get duplicated
         int[][] clone = new int[6][7];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
@@ -197,8 +218,8 @@ public class Board {
                 }
             }
 
-            // Depth is zero therefore find the heristic value of the board
-            // 2 is your AI peice
+            // Depth is zero therefore find the heuristic value of the board
+            // 2 is your AI piece
             else {
                 return new int[] {-1, scoreCheck(board, 2)};
             }
@@ -206,19 +227,24 @@ public class Board {
         if (maximizingPlayer) {
             int value = -1000000000;
             newCol = validLocations.get(0);
-
+            // Go through every possible column
             for (int col : validLocations) {
-
+            // Get the most open row, create a clone of the board
+            // And recursively call the function again with that new piece in play
+              
                 int row = getOpenRow(board, col);
                 int[][] boardClone = cloneBoard(board);
                 boardClone[row][col] = 2;
-
+            // Simulate all possible 'x' potential moves [x = DEPTH]
                 int newScore = miniMax(boardClone, depth - 1, alpha, beta, false)[1];
+            // If the score is evaluated as more desirable set the column to be 
+            // placed as that one
                 if (newScore > value) {
                     value = newScore;
                     newCol = col;
                 }
-
+            // Use Alpha Beta pruning to support efficient searching to remove
+            // unnecessary checking
                 alpha = Math.max(alpha, value);
                 if (alpha >= beta) {
                     break;
@@ -234,17 +260,20 @@ public class Board {
             newCol = validLocations.get(0);
 
             for (int col : validLocations) {
-
+            // Same process as above
                 int row = getOpenRow(board, col);
                 int[][] boardClone = cloneBoard(board);
                 boardClone[row][col] = 1;
                 int newScore = miniMax(boardClone, depth - 1, alpha, beta, true)[1];
-
+            // Since it is the minimizing player we are simulating as 
+            // the opponent piece so we want the least desirable option
+            // [We want to assume that within the next x moves, the opponent will 
+            // do the best possible move to stop us]
                 if (newScore < value) {
                     value = newScore;
                     newCol = col;
                 }
-
+            // Alpha Beta pruning
                 beta = Math.min(beta, value);
                 if (alpha >= beta) {
                     break;

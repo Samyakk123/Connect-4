@@ -361,6 +361,8 @@ public class Play extends JFrame {
      * @param board the board
      */
     public void resetBoard(int[][] board) {
+      // Once the game is finished return all values to null 
+      // If the users want to play again
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 board[i][j] = 0;
@@ -377,7 +379,7 @@ public class Play extends JFrame {
      * @return the row number
      */
     public int putAtBottom(int[][] board, int column, int player) {
-
+     // Place the piece in the bottom most row
         int i = this.board.getOpenRow(board, column);
         board[i][column] = player;
 
@@ -428,6 +430,7 @@ public class Play extends JFrame {
             } else if (type == false) {
 
                 if (winner != 1) {
+                // If playing against the AI use our minimax algorithm
                     colSelected = this.board.miniMax(grid, difficulty, -1000000, 1000000, true)[0];
                     putAtBottom(grid, colSelected, 2);
                     turn++;
