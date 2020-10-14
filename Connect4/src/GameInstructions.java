@@ -45,6 +45,12 @@ public class GameInstructions extends JFrame {
 				current.dispose();
 			}
 		});
+		
+		JLabel InstructionTitle = new JLabel("");
+		InstructionTitle.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/GameInstruction.png")));
+		InstructionTitle.setBounds(208, 37, 632, 107);
+		InstructionTitle.setVisible(true);
+		contentPane.add(InstructionTitle);
 
 		// information embedded with HTML in order to create a multiple line JLabel
 		JLabel GameInstructions = new JLabel(
@@ -57,16 +63,16 @@ public class GameInstructions extends JFrame {
 						+ "<p>&nbsp;</p>\r\n"
 						+ "<p><strong>3</strong>. The winner is determined after having 4 consectutive pieces either</p>\r\n"
 						+ "<p>&nbsp; &nbsp; horizontally, vertically, or diagonally.&nbsp;</p>");
-		GameInstructions.setFont(new Font("Calibri", Font.PLAIN, 23));
-		GameInstructions.setBounds(47, 93, 775, 351);
+		GameInstructions.setFont(new Font("Calibri", Font.PLAIN, 20));
+		GameInstructions.setBounds(19, 100, 775, 351);
 		contentPane.add(GameInstructions);
 		Back.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/Back40.png")));
-		Back.setBounds(16, 426, 295, 93);
+		Back.setBounds(668, 437, 151, 93);
 		contentPane.add(Back);
 
 		// sets the background image
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/AnotherBackground.PNG")));
+		label.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/BackImage1.jpg")));
 		label.setBounds(-1, 0, 786, 513);
 		contentPane.add(label);
 

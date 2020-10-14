@@ -15,7 +15,7 @@ public class Difficulty extends JFrame {
   private JFrame current;
   private JLabel easyDifficulty, easyDifficultySmall, veryEasyDifficulty, veryHardDifficulty,
       hardDifficulty, mediumDifficulty, mediumDifficultySmall, hardDifficultySmall,
-      veryEasyDifficultySmall, veryHardDifficultySmall;
+      veryEasyDifficultySmall, veryHardDifficultySmall, playAgain;
 
 
   /**
@@ -23,6 +23,7 @@ public class Difficulty extends JFrame {
    */
   public Difficulty() {
     this.current = this;
+
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(100, 100, 800, 551);
     contentPane = new JPanel();
@@ -92,6 +93,22 @@ public class Difficulty extends JFrame {
         easyDifficultySmall.setVisible(true);
       }
     });
+    
+    playAgain = new JLabel("Play Again!");
+    playAgain.setIcon(new ImageIcon(Play.class.getResource("/images/Back40.png")));
+    playAgain.setBounds(668, 457, 116, 65);
+    playAgain.setVisible(true);
+    contentPane.add(playAgain);
+    
+        playAgain.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent arg0) {
+                Start Start = new Start();
+                Start.setVisible(true);
+                current.dispose();
+    
+            }
+        });
     easyDifficultySmall
         .setIcon(new ImageIcon(Difficulty.class.getResource("/images/EasySmall.png")));
     easyDifficultySmall.setBounds(95, 207, 137, 61);
@@ -180,7 +197,7 @@ public class Difficulty extends JFrame {
     JLabel title = new JLabel("");
     title.setVisible(true);
     title.setIcon(new ImageIcon(Difficulty.class.getResource("/images/ChooseDifficulty.png")));
-    title.setBounds(52, 47, 692, 61);
+    title.setBounds(51, 69, 692, 61);
     contentPane.add(title);
 
     mediumDifficultySmall = new JLabel("");
@@ -256,8 +273,10 @@ public class Difficulty extends JFrame {
     contentPane.add(veryHardDifficultySmall);
 
     JLabel Background = new JLabel("");
-    Background.setIcon(new ImageIcon(Play.class.getResource("/images/BlueBackgronud.jpg")));
+    Background.setIcon(new ImageIcon(Difficulty.class.getResource("/images/BackImage.jpg")));
     Background.setBounds(0, 0, 784, 512);
     contentPane.add(Background);
   }
+  
+  
 }
