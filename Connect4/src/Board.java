@@ -1,7 +1,19 @@
 import java.util.ArrayList;
 
+/**
+ * Create board related functions
+ * 
+ * @author Aryan Patel, Samyak Metha
+ *
+ */
 public class Board {
 
+    /**
+     * Get valid column
+     * 
+     * @param board the board
+     * @return validLocations the array list of valid columns
+     */
     public ArrayList<Integer> getValidLocation(int[][] board) {
         ArrayList<Integer> validLocations = new ArrayList<>();
 
@@ -13,6 +25,13 @@ public class Board {
         return validLocations;
     }
 
+    /**
+     * Get valid row given column
+     * 
+     * @param board the board
+     * @param column the column
+     * @return i the valid row
+     */
     public int getOpenRow(int[][] board, int column) {
 
         int i = board.length - 1;
@@ -26,6 +45,13 @@ public class Board {
         return -1;
     }
 
+    /**
+     * Calculate best move
+     * 
+     * @param array
+     * @param piece
+     * @return score
+     */
     public int evaluateWindow(int[] array, int piece) {
         int score = 0;
         int oppPiece = 1;
@@ -55,18 +81,19 @@ public class Board {
         } else if (pieceCount == 2 && emptyCount == 2) {
             score += 3;
         }
-
         if (oppPieceCount == 3 && emptyCount == 1) {
             score -= 25;
         }
-
-
-
         return score;
     }
 
-
-
+    /**
+     * Check the score of the board at every 4 pieces [vertical/horizontal/diagonal]
+     * 
+     * @param board
+     * @param piece
+     * @return score
+     */
     public int scoreCheck(int[][] board, int piece) {
 
         int score = 0;
@@ -114,6 +141,12 @@ public class Board {
         return score;
     }
 
+    /**
+     * Terminal board positions
+     * 
+     * @param board
+     * @return boolean [true/false]
+     */
     public boolean terminal_node(int[][] board) {
         return winCheck(board) == 1 || winCheck(board) == 2 || getValidLocation(board).size() == 0;
     }
@@ -126,11 +159,19 @@ public class Board {
                 clone[i][j] = board[i][j];
             }
         }
-
         return clone;
     }
 
-    // maximizingPlayer is the AI peice
+    /**
+     * Find the best possible positon of AI which thinks depth moves ahead
+     * 
+     * @param board
+     * @param depth the number of moves it calculates ahead
+     * @param alpha
+     * @param beta
+     * @param maximizingPlayer the AI
+     * @return int[] the best score given the best column
+     */
     public int[] miniMax(int[][] board, int depth, int alpha, int beta, boolean maximizingPlayer) {
         ArrayList<Integer> validLocations = getValidLocation(board);
 
@@ -144,18 +185,18 @@ public class Board {
                 if (winCheck(board) == 2) {
                     return new int[] {-1, 100000000};
                 }
-                
+
                 // Second condition: If Player has the winning move
                 else if (winCheck(board) == 1) {
                     return new int[] {-1, -100000000};
                 }
-                
+
                 // Game is over no more valid moves
                 else {
                     return new int[] {-1, 0};
                 }
             }
-        
+
             // Depth is zero therefore find the heristic value of the board
             // 2 is your AI peice
             else {
@@ -165,13 +206,13 @@ public class Board {
         if (maximizingPlayer) {
             int value = -1000000000;
             newCol = validLocations.get(0);
-            
+
             for (int col : validLocations) {
-                
+
                 int row = getOpenRow(board, col);
                 int[][] boardClone = cloneBoard(board);
                 boardClone[row][col] = 2;
-                
+
                 int newScore = miniMax(boardClone, depth - 1, alpha, beta, false)[1];
                 if (newScore > value) {
                     value = newScore;
@@ -186,19 +227,19 @@ public class Board {
             }
             return new int[] {newCol, value};
         }
-        
+
         // Minimizing player
         else {
             int value = 1000000000;
             newCol = validLocations.get(0);
-            
+
             for (int col : validLocations) {
-                
+
                 int row = getOpenRow(board, col);
                 int[][] boardClone = cloneBoard(board);
                 boardClone[row][col] = 1;
                 int newScore = miniMax(boardClone, depth - 1, alpha, beta, true)[1];
-                
+
                 if (newScore < value) {
                     value = newScore;
                     newCol = col;
@@ -282,13 +323,6 @@ public class Board {
     }
 
     /**
-     * putAtBottom checks if a move is valid, and makes the move if it is
-     * 
-     * @param column (int) - column selected to place piece
-     * @param player (int) - whose turn it is (player 1 or 2)
-     */
-
-    /**
      * checks for ties depending on if the top row is filled
      * 
      * @return a boolean type if there is a tie or not
@@ -309,8 +343,5 @@ public class Board {
         }
         // else there is no tie, and returns false
         return false;
-
     }
-
-
 }
