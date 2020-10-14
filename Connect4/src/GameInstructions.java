@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 /**
  * Game Instruction JFrame
@@ -76,6 +78,7 @@ public class GameInstructions extends JFrame {
                         + "<p>&nbsp;</p>\r\n"
                         + "<p><strong>3</strong>. The winner is determined after having 4 consectutive pieces either</p>\r\n"
                         + "<p>&nbsp; &nbsp; horizontally, vertically, or diagonally.&nbsp;</p>");
+        GameInstructions.setHorizontalAlignment(SwingConstants.CENTER);
         GameInstructions.setFont(new Font("Calibri", Font.PLAIN, 20));
         GameInstructions.setBounds(19, 100, 775, 351);
         contentPane.add(GameInstructions);
@@ -85,6 +88,7 @@ public class GameInstructions extends JFrame {
 
         // sets the background image
         JLabel label = new JLabel("");
+        label.setBackground(Color.WHITE);
         label.setIcon(new ImageIcon(getClass().getClassLoader().getResource("BackImage1.jpg")));
         label.setBounds(-1, 0, 786, 513);
         contentPane.add(label);
