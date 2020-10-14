@@ -87,7 +87,7 @@ public class Play extends JFrame {
         Tie.setVisible(false);
 
         playAgain = new JLabel("Play Again!");
-        playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
+        playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("back40Small.png")));
         playAgain.setBounds(668, 457, 116, 65);
         playAgain.setVisible(true);
 
@@ -133,6 +133,13 @@ public class Play extends JFrame {
                 Start.setVisible(true);
                 current.dispose();
 
+            }
+            public void mouseEntered(MouseEvent arg0) {
+                playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
+            }
+            public void mouseExited(MouseEvent arg0) {
+                
+                playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("back40Small.png")));
             }
         });
 
@@ -417,7 +424,7 @@ public class Play extends JFrame {
                 turn++;
                 whichTurn();
 
-            // Player vs Computer
+                // Player vs Computer
             } else if (type == false) {
 
                 if (winner != 1) {

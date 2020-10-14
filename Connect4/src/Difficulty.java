@@ -103,7 +103,7 @@ public class Difficulty extends JFrame {
 
         // PlayAgain Button
         playAgain = new JLabel("Play Again!");
-        playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
+        playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("back40Small.png")));
         playAgain.setBounds(668, 457, 116, 65);
         playAgain.setVisible(true);
         contentPane.add(playAgain);
@@ -114,7 +114,13 @@ public class Difficulty extends JFrame {
                 Start Start = new Start();
                 Start.setVisible(true);
                 current.dispose();
-
+            }
+            public void mouseEntered(MouseEvent arg0) {
+                playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
+            }
+            public void mouseExited(MouseEvent arg0) {
+                
+                playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("back40Small.png")));
             }
         });
 

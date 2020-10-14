@@ -50,6 +50,13 @@ public class GameInstructions extends JFrame {
                 current.dispose();
 
             }
+            public void mouseEntered(MouseEvent arg0) {
+                Back.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
+            }
+            public void mouseExited(MouseEvent arg0) {
+                
+                Back.setIcon(new ImageIcon(getClass().getClassLoader().getResource("back40Small.png")));
+            }
         });
 
         JLabel InstructionTitle = new JLabel("");
@@ -72,7 +79,7 @@ public class GameInstructions extends JFrame {
         GameInstructions.setFont(new Font("Calibri", Font.PLAIN, 20));
         GameInstructions.setBounds(19, 100, 775, 351);
         contentPane.add(GameInstructions);
-        Back.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
+        Back.setIcon(new ImageIcon(getClass().getClassLoader().getResource("back40Small.png")));
         Back.setBounds(668, 437, 151, 93);
         contentPane.add(Back);
 

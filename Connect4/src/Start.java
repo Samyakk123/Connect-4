@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.SwingConstants;
 
 /**
  * Create main page
@@ -39,6 +40,7 @@ public class Start extends JFrame {
         // where the game is played.
         // Player plays against a computer
         JLabel Computer = new JLabel("");
+        Computer.setHorizontalAlignment(SwingConstants.RIGHT);
         Computer.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -47,12 +49,19 @@ public class Start extends JFrame {
                 current.setVisible(false);
                 current.dispose();
             }
+            public void mouseEntered(MouseEvent arg0) {
+                Computer.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Computer.png")));
+            }
+            public void mouseExited(MouseEvent arg0) {
+                
+                Computer.setIcon(new ImageIcon(getClass().getClassLoader().getResource("computerSmall.png")));
+            }
         });
-        Computer.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Computer.png")));
-        Computer.setBounds(522, 454, 282, 64);
+        Computer.setIcon(new ImageIcon(getClass().getClassLoader().getResource("computerSmall.png")));
+        Computer.setBounds(522, 449, 264, 64);
         contentPane.add(Computer);
 
-        //Check if application has moved
+        // Check if application has moved
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentMoved(ComponentEvent e) {
@@ -72,16 +81,24 @@ public class Start extends JFrame {
                 current.setVisible(false);
                 newFrame.setVisible(true);
             }
+            public void mouseEntered(MouseEvent arg0) {
+                Instruction.setIcon(new ImageIcon(getClass().getClassLoader().getResource("cooltext325036038343695.png")));
+            }
+            public void mouseExited(MouseEvent arg0) {
+                
+                Instruction.setIcon(new ImageIcon(getClass().getClassLoader().getResource("guide.png")));
+            }
         });
 
-        Instruction.setIcon(new ImageIcon(getClass().getClassLoader().getResource("cooltext325036038343695.png")));
-        Instruction.setBounds(3, 412, 357, 148);
+        Instruction.setIcon(new ImageIcon(getClass().getClassLoader().getResource("guide.png")));
+        Instruction.setBounds(3, 449, 161, 69);
         contentPane.add(Instruction);
 
         // JLabel button that takes users to the "Play" JFrame which displayers the game
         // board and where the game is played.
         // PLayer will play against another player
         JLabel player = new JLabel("");
+        player.setHorizontalAlignment(SwingConstants.RIGHT);
         player.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent arg0) {
@@ -90,9 +107,16 @@ public class Start extends JFrame {
                 frame.setVisible(true);
                 current.dispose();
             }
+            public void mouseEntered(MouseEvent arg0) {
+                player.setIcon(new ImageIcon(getClass().getClassLoader().getResource("P vs p.png")));
+            }
+            public void mouseExited(MouseEvent arg0) {
+                
+                player.setIcon(new ImageIcon(getClass().getClassLoader().getResource("pvsp.png")));
+            }
         });
-        player.setIcon(new ImageIcon(getClass().getClassLoader().getResource("P vs p.png")));
-        player.setBounds(620, 394, 171, 64);
+        player.setIcon(new ImageIcon(getClass().getClassLoader().getResource("pvsp.png")));
+        player.setBounds(614, 394, 169, 57);
         contentPane.add(player);
 
         // sets the background image
