@@ -3,6 +3,8 @@
  * @author Aryan, Adarsh 
  */
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -29,7 +31,7 @@ public class GameInstructions extends JFrame {
 		this.current = this;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 550);
+		setBounds(main.x, main.y, 800, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -40,14 +42,16 @@ public class GameInstructions extends JFrame {
 		JLabel Back = new JLabel("");
 		Back.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				originator.setVisible(true);
-				current.dispose();
-			}
+            public void mousePressed(MouseEvent arg0) {
+                Start Start = new Start();
+                Start.setVisible(true);
+                current.dispose();
+    
+            }
 		});
 		
 		JLabel InstructionTitle = new JLabel("");
-		InstructionTitle.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/GameInstruction.png")));
+		InstructionTitle.setIcon(new ImageIcon(getClass().getClassLoader().getResource("GameInstruction.png")));
 		InstructionTitle.setBounds(208, 37, 632, 107);
 		InstructionTitle.setVisible(true);
 		contentPane.add(InstructionTitle);
@@ -66,20 +70,32 @@ public class GameInstructions extends JFrame {
 		GameInstructions.setFont(new Font("Calibri", Font.PLAIN, 20));
 		GameInstructions.setBounds(19, 100, 775, 351);
 		contentPane.add(GameInstructions);
-		Back.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/Back40.png")));
+		Back.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
 		Back.setBounds(668, 437, 151, 93);
 		contentPane.add(Back);
 
 		// sets the background image
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/BackImage1.jpg")));
+		label.setIcon(new ImageIcon(getClass().getClassLoader().getResource("BackImage1.jpg")));
 		label.setBounds(-1, 0, 786, 513);
 		contentPane.add(label);
 
 		// sets title of JFrame
 		JLabel GameInstruction = new JLabel("");
-		GameInstruction.setIcon(new ImageIcon(GameInstructions.class.getResource("/images/GameI.PNG")));
+		GameInstruction.setIcon(new ImageIcon(getClass().getClassLoader().getResource("GameI.PNG")));
 		GameInstruction.setBounds(183, -13, 508, 157);
 		contentPane.add(GameInstruction);
+		
+	    addComponentListener(new ComponentAdapter() {
+	      @Override
+	      public void componentMoved(ComponentEvent e) {
+	        main.x = getBounds().x;
+	        main.y = getBounds().y;
+	        
+	        main.setValues(getBounds().x, getBounds().y);
+	      }
+	    });
+		
+		
 	}
 }

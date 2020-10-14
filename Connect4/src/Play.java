@@ -5,6 +5,7 @@
  * 
  * @author Aryan, Adarsh
  */
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 public class Play extends JFrame {
@@ -34,12 +37,13 @@ public class Play extends JFrame {
     private JLabel[][] yellowGrid = new JLabel[6][7];
     private int[][] grid = new int[6][7];
     private Board board;
-    private JFrame current, main;
+    private JFrame current;
     private boolean type;
     private HashMap<Integer,JLabel> map;
-    private String red = "/images/cRed.png";
-    private String yellow = "/images/cYellow.png";
-    private String decider = "/images/cYellow.png";
+    private String red = "cRed.png";
+    
+    private String yellow = "CYellow.png";
+    private String decider = "CYellow.png";
 
 
     /**
@@ -49,9 +53,10 @@ public class Play extends JFrame {
      *        true, the it is player vs player, else its player vs computer
      */
     public Play(boolean type, int difficulty) {
+      
+      this.current = this;
         
         this.board = new Board();
-        this.current = this;
         this.type = type;
         this.difficulty = difficulty;
         this.map = new HashMap<Integer,JLabel>(); 
@@ -59,7 +64,7 @@ public class Play extends JFrame {
         Scanner in = new Scanner(System.in);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 550);
+        setBounds(main.x, main.y, 800, 550);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -73,18 +78,21 @@ public class Play extends JFrame {
 
         // Star JLabel image displayed for the player one
         Star = new JLabel("");
-        Star.setIcon(new ImageIcon(Play.class.getResource("/images/STAR.png")));
+        //Star.setIcon(new ImageIcon(Play.class.getResource("/images/STAR.png")));
+        Star.setIcon(new ImageIcon(getClass().getClassLoader().getResource("STAR.png")));
+        
+        
         Star.setBounds(19, 143, 74, 74);
         Star.setVisible(false);
 
         // Tie JLabel image displayed if there is a tie
         Tie = new JLabel("");
-        Tie.setIcon(new ImageIcon(Play.class.getResource("/images/TIE.png")));
+        Tie.setIcon(new ImageIcon(getClass().getClassLoader().getResource("TIE.png")));
         Tie.setBounds(276, -10, 327, 113);
         Tie.setVisible(false);
 
         playAgain = new JLabel("Play Again!");
-        playAgain.setIcon(new ImageIcon(Play.class.getResource("/images/Back40.png")));
+        playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
         playAgain.setBounds(668, 457, 116, 65);
         playAgain.setVisible(true);
         
@@ -106,11 +114,11 @@ public class Play extends JFrame {
                                 Column1.setIcon(null);
                                 colSelected = 0;
                                 takeTurn();
-                                Column1.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                                Column1.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
                                 
                             }
                             public void mouseEntered(MouseEvent e) {
-                                Column1.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                                Column1.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
                             }
                             public void mouseExited(MouseEvent e) {
                                 Column1.setIcon(null);
@@ -132,32 +140,32 @@ public class Play extends JFrame {
         });
 
         Star2 = new JLabel("");
-        Star2.setIcon(new ImageIcon(Play.class.getResource("/images/STAR.png")));
+        Star2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("STAR.png")));
         Star2.setBounds(694, 141, 74, 74);
         Star2.setVisible(false);
         contentPane.add(Star2);
-        oneb.setIcon(new ImageIcon(Play.class.getResource("/images/111.png")));
+        oneb.setIcon(new ImageIcon(getClass().getClassLoader().getResource("111.png")));
         oneb.setBounds(26, 212, 73, 92);
         contentPane.add(oneb);
 
         // small number 1 JLabel image
         one = new JLabel("");
         one.setVisible(false);
-        one.setIcon(new ImageIcon(Play.class.getResource("/images/11.png")));
+        one.setIcon(new ImageIcon(getClass().getClassLoader().getResource("11.png")));
         one.setBounds(26, 230, 73, 74);
         contentPane.add(one);
 
         // small number 2 JLabel image
         two = new JLabel("");
         two.setVisible(true);
-        two.setIcon(new ImageIcon(Play.class.getResource("/images/22.png")));
+        two.setIcon(new ImageIcon(getClass().getClassLoader().getResource("22.png")));
         two.setBounds(695, 212, 66, 99);
         contentPane.add(two);
 
         // Big number 2 JLabel image
         twob = new JLabel("");
         twob.setVisible(false);
-        twob.setIcon(new ImageIcon(Play.class.getResource("/images/222.png")));
+        twob.setIcon(new ImageIcon(getClass().getClassLoader().getResource("222.png")));
         twob.setBounds(695, 212, 73, 92);
         contentPane.add(twob);
 
@@ -197,17 +205,19 @@ public class Play extends JFrame {
         // creates a 2d array of JLabel yellow pieces
         // filling the board with the pieces
         // set the visibility of each pieces to invisible
+
+        
+        
         for (int i = 0; i < yellowGrid.length; i++) {
             for (int j = 0; j < yellowGrid[i].length; j++) {
                 yellowGrid[i][j] = new JLabel("");
-                yellowGrid[i][j].setIcon(new ImageIcon(Play.class.getResource("/images/cYellow.png")));
+                yellowGrid[i][j].setIcon(new ImageIcon(getClass().getClassLoader().getResource("CYellow.png")));
                 yellowGrid[i][j].setBounds(126 + j * 76, 424 - i * 67, 73, 67);
                 contentPane.add(yellowGrid[i][j]);
                 yellowGrid[i][j].setVisible(false);
-
-                // Filling in all the red spots
+                
                 redGrid[i][j] = new JLabel("");
-                redGrid[i][j].setIcon(new ImageIcon(Play.class.getResource("/images/cRed.png")));
+                redGrid[i][j].setIcon(new ImageIcon(getClass().getClassLoader().getResource("cRed.png")));
                 redGrid[i][j].setBounds(126 + j * 76, 424 - i * 67, 73, 67);
                 contentPane.add(redGrid[i][j]);
                 redGrid[i][j].setVisible(false);
@@ -216,14 +226,14 @@ public class Play extends JFrame {
         }
 
 
-        gameBoard.setIcon(new ImageIcon(Play.class.getResource("/images/Connect4Board.png")));
+        gameBoard.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Connect4Board.png")));
         gameBoard.setBounds(41, 65, 706, 503);
         contentPane.add(gameBoard);
         gameBoard.setVisible(true);
 
         // set the background image
         JLabel Background = new JLabel("");
-        Background.setIcon(new ImageIcon(Play.class.getResource("/images/BlueBackgronud.jpg")));
+        Background.setIcon(new ImageIcon(getClass().getClassLoader().getResource("BlueBackgronud.jpg")));
         Background.setBounds(0, 0, 784, 511);
         contentPane.add(Background);
 
@@ -233,10 +243,10 @@ public class Play extends JFrame {
                 Column2.setIcon(null);
                 colSelected = 1;
                 takeTurn();
-                Column2.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column2.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseEntered(MouseEvent e) {
-                Column2.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column2.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseExited(MouseEvent e) {
                 Column2.setIcon(null);
@@ -249,10 +259,10 @@ public class Play extends JFrame {
                 Column3.setIcon(null);
                 colSelected = 2;
                 takeTurn();
-                Column3.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column3.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseEntered(MouseEvent e) {
-                Column3.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column3.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseExited(MouseEvent e) {
                 Column3.setIcon(null);
@@ -265,10 +275,10 @@ public class Play extends JFrame {
                 Column4.setIcon(null);
                 colSelected = 3;
                 takeTurn();
-                Column4.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column4.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseEntered(MouseEvent e) {
-                Column4.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column4.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseExited(MouseEvent e) {
                 Column4.setIcon(null);
@@ -280,10 +290,10 @@ public class Play extends JFrame {
                 Column5.setIcon(null);
                 colSelected = 4;
                 takeTurn();
-                Column5.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column5.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseEntered(MouseEvent e) {
-                Column5.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column5.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseExited(MouseEvent e) {
                 Column5.setIcon(null);
@@ -295,10 +305,10 @@ public class Play extends JFrame {
                 Column6.setIcon(null);
                 colSelected = 5;
                 takeTurn();
-                Column6.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column6.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseEntered(MouseEvent e) {
-                Column6.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column6.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseExited(MouseEvent e) {
                 Column6.setIcon(null);
@@ -311,15 +321,28 @@ public class Play extends JFrame {
                 Column7.setIcon(null);
                 colSelected = 6;
                 takeTurn();
-                Column7.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column7.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseEntered(MouseEvent e) {
-                Column7.setIcon(new ImageIcon(Play.class.getResource(decider)));
+                Column7.setIcon(new ImageIcon(getClass().getClassLoader().getResource(decider)));
             }
             public void mouseExited(MouseEvent e) {
                 Column7.setIcon(null);
             }
         });
+        
+        
+        addComponentListener(new ComponentAdapter() {
+          @Override
+          public void componentMoved(ComponentEvent e) {
+            main.x = getBounds().x;
+            main.y = getBounds().y;
+            
+            main.setValues(getBounds().x, getBounds().y);
+          }
+        });
+        
+        
        
 
     }
@@ -350,16 +373,7 @@ public class Play extends JFrame {
         return i;
     }
     
-//    private void changeCol(String color) {
-//        Column1.setIcon(new ImageIcon(Play.class.getResource("/images/c" +color+".png")));
-//        Column2.setIcon(new ImageIcon(Play.class.getResource("/images/c" +color+".png")));
-//        Column3.setIcon(new ImageIcon(Play.class.getResource("/images/c" +color+".png")));
-//        Column4.setIcon(new ImageIcon(Play.class.getResource("/images/c" +color+".png")));
-//        Column5.setIcon(new ImageIcon(Play.class.getResource("/images/c" +color+".png")));
-//        Column6.setIcon(new ImageIcon(Play.class.getResource("/images/c" +color+".png")));
-//        Column7.setIcon(new ImageIcon(Play.class.getResource("/images/c" +color+".png")));
-//    }
- 
+
     private void takeTurn() {
 
         winner = this.board.winCheck(grid);

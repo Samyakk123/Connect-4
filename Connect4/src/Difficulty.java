@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JSlider;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Difficulty extends JFrame {
 
@@ -22,10 +24,11 @@ public class Difficulty extends JFrame {
    * Create the frame.
    */
   public Difficulty() {
+
     this.current = this;
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setBounds(100, 100, 800, 551);
+    setBounds(main.x, main.y, 800, 551);
     contentPane = new JPanel();
     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     setContentPane(contentPane);
@@ -33,7 +36,7 @@ public class Difficulty extends JFrame {
 
     veryHardDifficulty = new JLabel("");
     veryHardDifficulty
-        .setIcon(new ImageIcon(Difficulty.class.getResource("/images/VeryHardBig.png")));
+        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("VeryHardBig.png")));
     veryHardDifficulty.setVisible(false);
     veryHardDifficulty.addMouseListener(new MouseAdapter() {
 
@@ -58,7 +61,7 @@ public class Difficulty extends JFrame {
 
     veryEasyDifficulty = new JLabel("");
     veryEasyDifficulty
-        .setIcon(new ImageIcon(Difficulty.class.getResource("/images/VeryEasyBig.png")));
+        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("VeryEasyBig.png")));
     veryEasyDifficulty.setVisible(false);
     veryEasyDifficulty.addMouseListener(new MouseAdapter() {
       public void mousePressed(MouseEvent e) {
@@ -95,7 +98,7 @@ public class Difficulty extends JFrame {
     });
     
     playAgain = new JLabel("Play Again!");
-    playAgain.setIcon(new ImageIcon(Play.class.getResource("/images/Back40.png")));
+    playAgain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Back40.png")));
     playAgain.setBounds(668, 457, 116, 65);
     playAgain.setVisible(true);
     contentPane.add(playAgain);
@@ -110,7 +113,7 @@ public class Difficulty extends JFrame {
             }
         });
     easyDifficultySmall
-        .setIcon(new ImageIcon(Difficulty.class.getResource("/images/EasySmall.png")));
+        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("EasySmall.png")));
     easyDifficultySmall.setBounds(95, 207, 137, 61);
     contentPane.add(easyDifficultySmall);
     veryEasyDifficulty.setBounds(201, 322, 137, 111);
@@ -120,7 +123,7 @@ public class Difficulty extends JFrame {
     easyDifficultySmall.setVisible(true);
 
     hardDifficulty = new JLabel("");
-    hardDifficulty.setIcon(new ImageIcon(Difficulty.class.getResource("/images/HardBig.png")));
+    hardDifficulty.setIcon(new ImageIcon(getClass().getClassLoader().getResource("HardBig.png")));
     hardDifficulty.setVisible(false);
     hardDifficulty.addMouseListener(new MouseAdapter() {
 
@@ -145,7 +148,7 @@ public class Difficulty extends JFrame {
     contentPane.add(hardDifficulty);
 
     mediumDifficulty = new JLabel("");
-    mediumDifficulty.setIcon(new ImageIcon(Difficulty.class.getResource("/images/MediumBig.png")));
+    mediumDifficulty.setIcon(new ImageIcon(getClass().getClassLoader().getResource("MediumBig.png")));
     mediumDifficulty.setVisible(false);
     mediumDifficulty.addMouseListener(new MouseAdapter() {
 
@@ -170,7 +173,7 @@ public class Difficulty extends JFrame {
     contentPane.add(mediumDifficulty);
 
     easyDifficulty = new JLabel("");
-    easyDifficulty.setIcon(new ImageIcon(Difficulty.class.getResource("/images/EasyBig.png")));
+    easyDifficulty.setIcon(new ImageIcon(getClass().getClassLoader().getResource("EasyBig.png")));
     easyDifficulty.setVisible(false);
     easyDifficulty.addMouseListener(new MouseAdapter() {
 
@@ -196,7 +199,7 @@ public class Difficulty extends JFrame {
 
     JLabel title = new JLabel("");
     title.setVisible(true);
-    title.setIcon(new ImageIcon(Difficulty.class.getResource("/images/ChooseDifficulty.png")));
+    title.setIcon(new ImageIcon(getClass().getClassLoader().getResource("ChooseDifficulty.png")));
     title.setBounds(51, 69, 692, 61);
     contentPane.add(title);
 
@@ -214,7 +217,7 @@ public class Difficulty extends JFrame {
       }
     });
     mediumDifficultySmall
-        .setIcon(new ImageIcon(Difficulty.class.getResource("/images/MediumSmall.png")));
+        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("MediumSmall.png")));
     mediumDifficultySmall.setBounds(278, 207, 218, 61);
     contentPane.add(mediumDifficultySmall);
 
@@ -232,7 +235,7 @@ public class Difficulty extends JFrame {
       }
     });
     hardDifficultySmall
-        .setIcon(new ImageIcon(Difficulty.class.getResource("/images/HardSmall.png")));
+        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("HardSmall.png")));
     hardDifficultySmall.setBounds(528, 207, 158, 61);
     contentPane.add(hardDifficultySmall);
 
@@ -250,7 +253,7 @@ public class Difficulty extends JFrame {
       }
     });
     veryEasyDifficultySmall
-        .setIcon(new ImageIcon(Difficulty.class.getResource("/images/VeryEasySmall.png")));
+        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("VeryEasySmall.png")));
     veryEasyDifficultySmall.setBounds(201, 322, 137, 111);
     contentPane.add(veryEasyDifficultySmall);
 
@@ -268,14 +271,28 @@ public class Difficulty extends JFrame {
       }
     });
     veryHardDifficultySmall
-        .setIcon(new ImageIcon(Difficulty.class.getResource("/images/VeryHardSmall.png")));
+        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("VeryHardSmall.png")));
     veryHardDifficultySmall.setBounds(412, 322, 150, 111);
     contentPane.add(veryHardDifficultySmall);
 
     JLabel Background = new JLabel("");
-    Background.setIcon(new ImageIcon(Difficulty.class.getResource("/images/BackImage.jpg")));
+    Background.setIcon(new ImageIcon(getClass().getClassLoader().getResource("BackImage.jpg")));
     Background.setBounds(0, 0, 784, 512);
     contentPane.add(Background);
+    
+    
+    
+    addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentMoved(ComponentEvent e) {
+        main.x = getBounds().x;
+        main.y = getBounds().y;
+        
+        main.setValues(getBounds().x, getBounds().y);
+      }
+    });
+    
+    
   }
   
   
